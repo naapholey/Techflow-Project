@@ -32,3 +32,22 @@ jobs:
         if: failure()
         run: |
           echo "Tests failed, stopping the pipeline."
+
+  deploy-to-docker:
+    runs-on: ubuntu-latest
+
+    needs: build
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+      - name: setup Docker Buildx
+        uses: docker/setup-buildx-action@v4
+      - name: Log in to DockerHub
+        uses: docker/login-action@v4
+        with:
+          username: ${{secrets.DockerHub_Username}}
+          password: ${{secrets.DockerHub_Password}}
+      - name: build app
+        run: docker build -t ${{secrets.DockerHub_Username}}/tech-flow:v1
+      
+      
