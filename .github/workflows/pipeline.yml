@@ -55,5 +55,5 @@ jobs:
         run: docker images # | grep ${{secrets.DockerHub_Username}}/teck-flow
       - name: push to Dockerhub
         run: docker push ${{secrets.DockerHub_Username}}/tech-flow:latest
-             docker push ${{ secrets.DockerHub_Username }}/tech-flow:${{ github.sha }}
+             #docker push ${{ secrets.DockerHub_Username }}/tech-flow:${{ github.sha }}
         
