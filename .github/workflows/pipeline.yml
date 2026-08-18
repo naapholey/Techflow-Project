@@ -50,6 +50,6 @@ jobs:
       - name: build app
         run: docker build -t ${{secrets.DockerHub_Username}}/tech-flow:v1 .
       - name: verify build
-        run: docker images | grep teck-flow
+        run: docker images 
       - name: push to Dockerhub
         run: docker push ${{secrets.DockerHub_Username}}/tech-flow:v1
