@@ -48,6 +48,6 @@ jobs:
           username: ${{secrets.DockerHub_Username}}
           password: ${{secrets.DockerHub_Password}}
       - name: build app
-        run: docker build -t ${{secrets.DockerHub_Username}}/tech-flow:v1
-      
-      
+        run: docker buildx build -t ${{secrets.DockerHub_Username}}/tech-flow:v1
+      - name: push to Dockerhub
+        run: docker push ${{secrets.DockerHub_Username}}/tech-flow:v1
