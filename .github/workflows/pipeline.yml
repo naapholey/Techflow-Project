@@ -10,6 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: checkout code
         uses: actions/checkout@v3
@@ -27,3 +28,7 @@ jobs:
       - name: Run tests
         run: |
           pytest
+      - name: Stop the pipeline if tests fail
+        if: failure()
+        run: |
+          echo "Tests failed, stopping the pipeline."
