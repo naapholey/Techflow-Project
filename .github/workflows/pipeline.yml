@@ -48,8 +48,12 @@ jobs:
           username: ${{secrets.DockerHub_Username}}
           password: ${{secrets.DockerHub_Password}}
       - name: build app
-        run: docker build -t ${{secrets.DockerHub_Username}}/tech-flow:v1 .
+        run: docker build -t ${{secrets.DockerHub_Username}}/tech-flow:latest .
+      - name: tag image as current sha
+        run: docker tag ${{secrets.DockerHub_Username}}/tech-flow:latest ${{secrets.DockerHub_Username}}/tech-flow:${{ github.sha }}
       - name: verify build
-        run: docker images 
+        run: docker images | grep ${{secrets.DockerHub_Username}}/teck-flow
       - name: push to Dockerhub
-        run: docker push ${{secrets.DockerHub_Username}}/tech-flow:v1
+        run: docker push ${{secrets.DockerHub_Username}}/tech-flow:latest
+             docker push ${{ secrets.DOCKERHUB_USERNAME }}/tech-flow:${{ github.sha }}
+        
