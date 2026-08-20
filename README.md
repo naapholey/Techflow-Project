@@ -2,7 +2,7 @@
 
 Welcome to your first DevOps engineering challenge! By the end of this project, you will have built a fully automated pipeline that takes code from GitHub all the way to a live server — with zero manual steps
 This is the kind of infrastructure that powers real production systems at companies like Shopify, Netflix, and Stripe.
-,
+, 
 -
 
 ## 🎯 The Mission
