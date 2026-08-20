@@ -71,4 +71,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           # port: ${{ secrets.EC2_PORT }}
           script: whoami
-
+      - name: pull image from docker
+        run: docker pull ${{secrets.DockerHub_Username}}/tech-flow:latest
+        
