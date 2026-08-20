@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "Tests failed, stopping the pipeline."
 
-  deploy-to-docker:
+  push-to-docker:
     runs-on: ubuntu-latest
 
     needs: build
@@ -57,4 +57,18 @@ jobs:
         run: |
             docker push ${{secrets.DockerHub_Username}}/tech-flow:latest
             docker push ${{ secrets.DockerHub_Username }}/tech-flow:${{ github.sha }}
-        
+      
+  deploy-to-ec2:
+    runs-on: ubuntu-latest
+    needs: push-to-docker
+
+    steps:
+      - name: ssh to ec2
+        uses: appleboy/ssh-action@v1
+        with: 
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          # port: ${{ secrets.EC2_PORT }}
+          script: whoami
+
