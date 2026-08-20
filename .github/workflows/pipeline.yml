@@ -73,4 +73,5 @@ jobs:
           script: whoami
       - name: pull image from docker
         run: docker pull ${{secrets.DockerHub_Username}}/tech-flow:latest
-        
+      - name: run the image
+        run: docker run -d -p 80:80 --name tech-flow-container ${{secrets.DockerHub_Username}}/tech-flow:latest
