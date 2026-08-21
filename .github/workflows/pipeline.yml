@@ -73,8 +73,7 @@ jobs:
           script: whoami
       - name: pull image from docker
         run: |
-          docker pull ${{secrets.DockerHub_Username}}/tech-flow:latest
+          docker pull naapholey/tech-flow:latest
       - name: run the image
         run: |
-          docker run -d -p 5000:5000 --name techflow-container ${{secrets.DockerHub_Username}}/tech-flow:latest
-          docker logs --details techflow-container 
+          docker run -d -p 5000:5000 naapholey/tech-flow:latest
