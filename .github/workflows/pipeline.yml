@@ -64,7 +64,7 @@ jobs:
 
     steps:
       - name: ssh to ec2
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@master
         with: 
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
@@ -73,7 +73,7 @@ jobs:
           script: whoami
       - name: pull image from docker
         run: |
-          docker pull naapholey/tech-flow:latest
+          docker pull ${{secrets.DockerHub_Username}}/tech-flow:latest
       - name: run the image
         run: |
-          docker run -d -p 5000:5000 naapholey/tech-flow:latest
+          docker run -d -p 5000:5000 ${{secrets.DockerHub_Username}}/tech-flow:latest
