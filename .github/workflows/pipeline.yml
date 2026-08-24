@@ -72,10 +72,6 @@ jobs:
           # port: ${{ secrets.EC2_PORT }}
           script: |
             docker pull ${{secrets.DockerHub_Username}}/tech-flow:latest
-            docker run -d -p 5000:5000 ${{secrets.DockerHub_Username}}/tech-flow:latest
-     # - name: pull image from docker
-     #   run: |
-     #     docker pull ${{secrets.DockerHub_Username}}/tech-flow:latest
-     # - name: run the image
-     #   run: |
-     #     docker run -d -p 5000:5000 ${{secrets.DockerHub_Username}}/tech-flow:latest
+            docker stop tech-flow-app
+            docker rm tech-flow-app
+            docker run -d -p 5000:5000 --name tech-flow-app ${{secrets.DockerHub_Username}}/tech-flow:latest
