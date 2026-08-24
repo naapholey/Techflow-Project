@@ -70,10 +70,10 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           # port: ${{ secrets.EC2_PORT }}
-          script: pull ${{secrets.DockerHub_Username}}/tech-flow:latest
-      - name: pull image from docker
-        run: |
-          docker pull ${{secrets.DockerHub_Username}}/tech-flow:latest
-      - name: run the image
-        run: |
-          docker run -d -p 5000:5000 ${{secrets.DockerHub_Username}}/tech-flow:latest
+          script: sudo pull ${{secrets.DockerHub_Username}}/tech-flow:latest
+     # - name: pull image from docker
+     #   run: |
+     #     docker pull ${{secrets.DockerHub_Username}}/tech-flow:latest
+     # - name: run the image
+     #   run: |
+     #     docker run -d -p 5000:5000 ${{secrets.DockerHub_Username}}/tech-flow:latest
