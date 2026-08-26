@@ -73,8 +73,8 @@ jobs:
           script: |
             # 1 Log into Docker Hub on the remote server
             echo "${{ secrets.DOCKERHUB_PASSWORD}}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-            docker tag ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:latest ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:previous_stable11
-            docker push  ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:previous_stable11
+            docker tag ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:latest ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:previous_stable
+            docker push  ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:previous_stable
             docker pull ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:latest
             docker stop tech-flow-app
             docker rm tech-flow-app
