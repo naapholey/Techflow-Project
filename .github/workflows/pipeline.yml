@@ -71,7 +71,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           # port: ${{ secrets.EC2_PORT }}
           script: |
-            docker image tag tech-flow:latest tech-flow:previous
+            docker tag ${{secrets.DockerHub_Username}}/tech-flow:latest ${{secrets.DockerHub_Username}}/tech-flow:previous_stable
+            docker push  ${{secrets.DockerHub_Username}}/tech-flow:previous_stable
             docker pull ${{secrets.DockerHub_Username}}/tech-flow:latest
             docker stop tech-flow-app
             docker rm tech-flow-app
