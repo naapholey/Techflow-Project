@@ -45,18 +45,18 @@ jobs:
       - name: Log in to DockerHub
         uses: docker/login-action@v4
         with:
-          username: ${{secrets.DockerHub_Username}}
+          username: ${{secrets.DOCKERHUB_USERNAME}}
           password: ${{secrets.DockerHub_Password}}
       - name: build app
-        run: docker build -t ${{secrets.DockerHub_Username}}/tech-flow:latest .
+        run: docker build -t ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:latest .
       - name: tag image as current sha
-        run: docker tag ${{secrets.DockerHub_Username}}/tech-flow:latest ${{secrets.DockerHub_Username}}/tech-flow:${{ github.sha }}
+        run: docker tag ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:latest ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:${{ github.sha }}
       - name: verify build
-        run: docker images # | grep ${{secrets.DockerHub_Username}}/teck-flow
+        run: docker images # | grep ${{secrets.DOCKERHUB_USERNAME}}/teck-flow
       - name: push to Dockerhub
         run: |
-            docker push ${{secrets.DockerHub_Username}}/tech-flow:latest
-            docker push ${{ secrets.DockerHub_Username }}/tech-flow:${{ github.sha }}
+            docker push ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:latest
+            docker push ${{ secrets.DOCKERHUB_USERNAME }}/tech-flow:${{ github.sha }}
       
   deploy-to-ec2:
     runs-on: ubuntu-latest
@@ -73,12 +73,12 @@ jobs:
           script: |
             # 1 Log into Docker Hub on the remote server
             echo "${{ secrets.DOCKERHUB_PASSWORD}}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-            docker tag ${{secrets.DockerHub_Username}}/tech-flow:latest ${{secrets.DockerHub_Username}}/tech-flow:previous_stable
-            docker push  ${{secrets.DockerHub_Username}}/tech-flow:previous_stable
-            docker pull ${{secrets.DockerHub_Username}}/tech-flow:latest
+            docker tag ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:latest ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:previous_stable
+            docker push  ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:previous_stable
+            docker pull ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:latest
             docker stop tech-flow-app
             docker rm tech-flow-app
-            docker run -d -p 5000:5000 --name tech-flow-app ${{secrets.DockerHub_Username}}/tech-flow:latest
+            docker run -d -p 5000:5000 --name tech-flow-app ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:latest
 
       - name: Send status email
         uses: dawidd6/action-send-mail@v4 # Always check for the latest major version
