@@ -71,6 +71,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           # port: ${{ secrets.EC2_PORT }}
           script: |
+            # 1 Log into Docker Hub on the remote server
+            echo "${{ secrets.DOCKERHUB_PASSWORD}}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
             docker tag ${{secrets.DockerHub_Username}}/tech-flow:latest ${{secrets.DockerHub_Username}}/tech-flow:previous_stable
             docker push  ${{secrets.DockerHub_Username}}/tech-flow:previous_stable
             docker pull ${{secrets.DockerHub_Username}}/tech-flow:latest
@@ -89,8 +91,8 @@ jobs:
           password: ${{secrets.EMAIL_APP_PASSWORD}}
 
           subject: Github 
-          to: "naapholei@gmail.com,annettetettey@gmail.com"
-          from: "CI Pipeline <naafolei@gmail.com>"
+          to: "naapholei@gmail.com"
+          from: "Antoinette Tettey <naafolei@gmail.com>"
           body: |
             The build job for ${{ github.repository }} completed.
             Status: ${{ job.status }}
