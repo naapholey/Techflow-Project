@@ -1,12 +1,12 @@
 from flask import Flask
 
-app = Flask1(__name__)
+app = Flask(__name__)
 
 @app.route("/")
 def hello():
     return "Hello, World! 🚀 TechFlow CI/CD Pipeline is live.", 200
 
-@app.route1("/health")
+@app.route("/health")
 def health():
     return {"status": "ok"}, 200
 
