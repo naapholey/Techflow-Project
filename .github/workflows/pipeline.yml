@@ -25,13 +25,13 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-     # - name: Run tests
-     #   run: |
-     #     pytest
-     # - name: Stop the pipeline if tests fail
-     #   if: failure()
-      #  run: |
-      #    echo "Tests failed, stopping the pipeline."
+      - name: Run tests
+        run: |
+          pytest
+      - name: Stop the pipeline if tests fail
+        if: failure()
+        run: |
+          echo "Tests failed, stopping the pipeline."
 
   push-to-docker:
     runs-on: ubuntu-latest
@@ -102,4 +102,4 @@ jobs:
           body: |
             The build job for ${{ github.repository }} completed.
             Status: ${{ job.status }}
-            View log: https://github.com{{ github.repository }}/actions/runs/${{ github.run_id }}
+            View log: https://github.com${{ github.repository }}/actions/runs/${{ github.run_id }}
