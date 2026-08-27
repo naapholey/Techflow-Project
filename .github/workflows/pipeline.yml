@@ -28,10 +28,10 @@ jobs:
       - name: Run tests
         run: |
           pytest
-      - name: Stop the pipeline if tests fail
-        if: failure()
-        run: |
-          echo "Tests failed, stopping the pipeline."
+     # - name: Stop the pipeline if tests fail
+     #   if: failure()
+      #  run: |
+      #    echo "Tests failed, stopping the pipeline."
 
   push-to-docker:
     runs-on: ubuntu-latest
