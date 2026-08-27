@@ -97,4 +97,6 @@ jobs:
             The build job for ${{ github.repository }} completed.
             Status: ${{ job.status }}
             View log: https://github.com{{ github.repository }}/actions/runs/${{ github.run_id }}
-
+            
+      - name: Check if deploy was successful
+        run: ./health_check.sh
