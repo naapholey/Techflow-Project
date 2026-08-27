@@ -80,7 +80,12 @@ jobs:
             docker rm tech-flow-app
             docker run -d -p 5000:5000 --name tech-flow-app ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:latest
             ./health_check.sh
-
+            DEPLOY_STATUS=$?
+            if [ $DEPLOY_STATUS eq 1 ]; then
+              echo "❌ Deployment step failed with exit code $DEPLOY_STATUS. Rolling Back to previous stable deploy."
+              ./rollback.sh
+              ./health_check.sh
+            fi
       - name: Send status email
         uses: dawidd6/action-send-mail@v4 # Always check for the latest major version
         with:
