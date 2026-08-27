@@ -79,6 +79,7 @@ jobs:
             docker stop tech-flow-app
             docker rm tech-flow-app
             docker run -d -p 5000:5000 --name tech-flow-app ${{secrets.DOCKERHUB_USERNAME}}/tech-flow:latest
+            ./health_check.sh
 
       - name: Send status email
         uses: dawidd6/action-send-mail@v4 # Always check for the latest major version
@@ -97,6 +98,3 @@ jobs:
             The build job for ${{ github.repository }} completed.
             Status: ${{ job.status }}
             View log: https://github.com{{ github.repository }}/actions/runs/${{ github.run_id }}
-
-      - name: Check if deploy was successful
-        run: ./home/ubuntu/health_check.sh
